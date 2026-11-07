@@ -34,8 +34,8 @@ class PhoneClient:
     def host(self):
         return self.config["host"]
 
-    def messages(self, since):
-        path = f"/messages?since={since}&limit=5000"
+    def messages(self, since, limit=5000):
+        path = f"/messages?since={since}&limit={limit}"
         return self.call(path)["messages"]
 
     def call(self, path):
