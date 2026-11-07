@@ -3,16 +3,16 @@ set -euo pipefail
 
 cd -- "$(dirname -- "${BASH_SOURCE[0]}")"
 
-if [[ -d .tools/jdk ]]; then
-    export JAVA_HOME="$PWD/.tools/jdk"
+if [[ -d ../.tools/jdk ]]; then
+    export JAVA_HOME="$PWD/../.tools/jdk"
 fi
 
-if [[ -d .tools/sdk ]]; then
-    export ANDROID_HOME="$PWD/.tools/sdk"
+if [[ -d ../.tools/sdk ]]; then
+    export ANDROID_HOME="$PWD/../.tools/sdk"
 fi
 
-if [[ -x .tools/gradle-8.7/bin/gradle ]]; then
-    gradle_command=("$PWD/.tools/gradle-8.7/bin/gradle")
+if [[ -x ../.tools/gradle-8.7/bin/gradle ]]; then
+    gradle_command=("$PWD/../.tools/gradle-8.7/bin/gradle")
 else
     gradle_command=(gradle)
 fi
