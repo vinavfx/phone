@@ -4,7 +4,10 @@ Visor de solo lectura de los SMS del teléfono en el escritorio Linux, a través
 
 - `android/`: aplicación **SMS Sync** (Android 10 o posterior). Un servicio en primer plano comparte los SMS en el puerto `8765`, protegido
   con un token aleatorio. Se inicia también al arrancar el teléfono.
-- `linux/`: aplicación **SMS** (Python + Tkinter). Muestra las conversaciones, consulta cada 3 segundos y notifica los mensajes nuevos.
+- `linux/`: aplicación **SMS** (Python + Tkinter). Muestra las conversaciones, consulta cada 3 segundos y notifica los mensajes nuevos. Las
+  conversaciones no leídas aparecen en negrita y con contador. Se pueden filtrar con **Unread only** y marcar todas con **Mark all read**.
+  Android solo permite marcar SMS como leídos a la app de mensajería predeterminada, por lo que el estado de lectura se guarda en
+  `~/.config/sms/state.json`.
 
 ## Instalar y emparejar
 

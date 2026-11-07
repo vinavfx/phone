@@ -90,7 +90,8 @@ write_config() {
 
 install_desktop_app() {
     mkdir -p "$APP_DIR" "$(dirname -- "$LAUNCHER")" "$(dirname -- "$DESKTOP_FILE")"
-    cp linux/client.py linux/window.py linux/sms.py "$APP_DIR/"
+    cp linux/client.py linux/theme.py linux/state.py "$APP_DIR/"
+    cp linux/window.py linux/sms.py "$APP_DIR/"
     printf '#!/usr/bin/env bash\nexec /usr/bin/python3 "%s/sms.py" "$@"\n' "$APP_DIR" \
         >"$LAUNCHER"
     chmod +x "$LAUNCHER"
