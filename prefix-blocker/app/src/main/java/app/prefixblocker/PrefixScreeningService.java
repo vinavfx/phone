@@ -1,5 +1,6 @@
 package app.prefixblocker;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
 import android.telecom.Call;
@@ -17,7 +18,7 @@ public final class PrefixScreeningService extends CallScreeningService {
         }
         Uri handle = details.getHandle();
         boolean blocked = handle != null && "tel".equals(handle.getScheme())
-                && PrefixRules.blocks(handle.getSchemeSpecificPart(), getRegion(),
+                && PrefixRules.blocks(handle.getSchemeSpecificPart(), region(this),
                         new PrefixStore(this).getPrefixes());
         respondToCall(details, new CallResponse.Builder()
                 .setDisallowCall(blocked)
@@ -25,10 +26,13 @@ public final class PrefixScreeningService extends CallScreeningService {
                 .setSkipNotification(blocked)
                 .setSkipCallLog(blocked)
                 .build());
+        if (blocked) {
+            BlockedCallCleaner.cleanSoon(this);
+        }
     }
 
-    private String getRegion() {
-        TelephonyManager telephony = getSystemService(TelephonyManager.class);
+    static String region(Context context) {
+        TelephonyManager telephony = context.getSystemService(TelephonyManager.class);
         String country = telephony == null ? "" : telephony.getNetworkCountryIso();
         if (TextUtils.isEmpty(country) && telephony != null) {
             country = telephony.getSimCountryIso();

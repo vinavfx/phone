@@ -24,6 +24,7 @@ public final class MainActivity extends Activity {
     private TextView status;
     private Button activate;
     private Button contacts;
+    private Button history;
     private EditText input;
     private LinearLayout list;
 
@@ -61,6 +62,10 @@ public final class MainActivity extends Activity {
         contacts.setOnClickListener(view -> requestPermissions(
                 new String[]{Manifest.permission.READ_CONTACTS}, 2));
         root.addView(contacts);
+        history = button("Hide blocked calls from history");
+        history.setOnClickListener(view -> requestPermissions(new String[]{
+                Manifest.permission.READ_CALL_LOG, Manifest.permission.WRITE_CALL_LOG}, 3));
+        root.addView(history);
 
         TextView help = text("Add a national prefix, such as 600 or 80. "
                 + "Use + and the country code for an international prefix.", 14);
@@ -101,6 +106,7 @@ public final class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         refreshStatus();
+        BlockedCallCleaner.cleanNow(this);
     }
 
     @Override
@@ -121,6 +127,7 @@ public final class MainActivity extends Activity {
         activate.setVisibility(enabled ? View.GONE : View.VISIBLE);
         activate.setEnabled(available);
         contacts.setVisibility(includesContacts ? View.GONE : View.VISIBLE);
+        history.setVisibility(BlockedCallCleaner.isAllowed(this) ? View.GONE : View.VISIBLE);
     }
 
     private void addPrefix() {

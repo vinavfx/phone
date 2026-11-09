@@ -11,7 +11,9 @@ salientes nunca se bloquean, aunque coincidan con un prefijo.
    - **Android 10 o posterior:** pulsa **Enable call blocking** para seleccionarla como filtro, sin cambiar tu aplicación de teléfono.
 2. Pulsa **Include saved contacts** y concede el permiso si también quieres bloquear números guardados. Sin él, Android excluye los
    contactos del filtrado. La aplicación no consulta ni transmite tu agenda.
-3. Añade prefijos con **Add** y elimínalos con **Delete**. La lista se guarda en el teléfono y comienza vacía en instalaciones nuevas.
+3. Pulsa **Hide blocked calls from history** para que la aplicación borre del historial las llamadas bloqueadas que coincidan con tus
+   prefijos. `install.sh` concede este permiso automáticamente.
+4. Añade prefijos con **Add** y elimínalos con **Delete**. La lista se guarda en el teléfono y comienza vacía en instalaciones nuevas.
 
 `600` bloquea los números nacionales que empiezan por `600`, incluso si llegan como `+56 600…`. `80` funciona del mismo modo. Un prefijo con
 `+`, como `+56600`, restringe la coincidencia al código internacional indicado. La normalización utiliza libphonenumber y el país de la red
@@ -36,7 +38,8 @@ del marcador están deshabilitados y no sustituyen a tu aplicación de teléfono
 - Android 9 o posterior. Android 9 exige ser el teléfono predeterminado; las versiones posteriores utilizan el rol de filtrado de llamadas.
   Solo una aplicación puede ocupar cada función a la vez.
 - Se utiliza `CallScreeningService` para rechazar la llamada antes del timbre y solicitar que no haya notificación de llamada perdida.
-- Android puede conservar la llamada en el historial de bloqueadas: las aplicaciones normales no pueden impedirlo mediante este servicio.
+- Android registra igualmente la llamada como bloqueada; con el permiso del historial, la aplicación la borra unos segundos después y al
+  abrirse.
 - Los números ocultos o no identificados no tienen un prefijo que comparar. No se filtran llamadas de WhatsApp ni de otras aplicaciones.
 - Las excepciones del sistema, por ejemplo tras una llamada de emergencia, y el desvío al buzón de voz dependen de Android y del operador.
 

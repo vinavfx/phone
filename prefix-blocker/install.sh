@@ -52,6 +52,8 @@ main() {
     fi
 
     adb -s "$serial" install -r dist/prefix-blocker.apk
+    adb -s "$serial" shell pm grant app.prefixblocker android.permission.READ_CALL_LOG
+    adb -s "$serial" shell pm grant app.prefixblocker android.permission.WRITE_CALL_LOG
     adb -s "$serial" shell am start -n app.prefixblocker/.MainActivity
     printf 'Installed. Enable call blocking in the app and add your prefixes.\n'
 }
